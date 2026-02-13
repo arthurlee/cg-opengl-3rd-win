@@ -226,8 +226,7 @@ Download the source code and it is a header-only libary.
 
 ![SOIL](images/soil.png)
 
-- [SOIL2 - Simple OpenGL Image Loader](https://github.com/SpartanJ/
-SOIL2 )
+- [SOIL2 - Simple OpenGL Image Loader](https://github.com/SpartanJ/SOIL2)
 
 Download the source code zip.
 using premake to generate the visual studio solution.
