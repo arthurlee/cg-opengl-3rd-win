@@ -8,10 +8,10 @@ using namespace std;
 
 #define numVAOs 1
 
-QProgram renderingProgram;
+QProgram *renderingProgram = nullptr;
 GLuint vao[numVAOs];
 
-QProgram createShaderProgram() {
+void createShaderProgram() {
 	const char* vshaderSource = R"(
 		#version 430
 		void main(void)
@@ -31,13 +31,13 @@ QProgram createShaderProgram() {
 	QShader vShader(GL_VERTEX_SHADER, vshaderSource);
 	QShader fShader(GL_FRAGMENT_SHADER, fshaderSource);
 
-	QProgram vfProgram(vShader, fShader);
+	//QProgram vfProgram(vShader, fShader);
 
-	return vfProgram;
+	renderingProgram = new QProgram(vShader, fShader);
 }
 
 int point_init(GLFWwindow* window) {
-	renderingProgram = createShaderProgram();
+	createShaderProgram();
 
 	glGenVertexArrays(numVAOs, vao);
 	glBindVertexArray(vao[0]);
@@ -45,12 +45,25 @@ int point_init(GLFWwindow* window) {
 	return 0;
 }
 
+void destroyShaderProgram() {
+	delete renderingProgram;
+	renderingProgram = nullptr;
+}
+
+void point_deinit() {
+	cout << "point_deinit..." << endl;
+	destroyShaderProgram();
+}
+
 void point_display(GLFWwindow* window, double currentTime) {
-	renderingProgram.Use();
+	if (renderingProgram != nullptr) {
+		renderingProgram->Use();
+	}
+
 	glPointSize(40.0f);
 	glDrawArrays(GL_POINTS, 0, 1);
 }
 
 QRunnable point_runnable() {
-	return QRunnable(point_display, "Chapter2 - program2", point_init);
+	return QRunnable(point_display, "Chapter2 - program2", point_init, point_deinit);
 }

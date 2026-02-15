@@ -9,6 +9,10 @@ public:
 		: m_runnable(runnable), m_majorVersion(major), m_minorVersion(minor) {}
 
 	~QApp() {
+		if (m_runnable.deinit != nullptr) {
+			m_runnable.deinit();
+		}
+
 		if (m_window != nullptr) {
 			glfwDestroyWindow(m_window);
 		}

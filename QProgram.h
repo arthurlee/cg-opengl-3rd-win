@@ -15,6 +15,12 @@ public:
 		glLinkProgram(m_program);
 	}
 
+	~QProgram() {
+		//if (m_program != 0) {
+		//	glDeleteProgram(m_program);
+		//}
+	}
+
 public:
 	void Use() const {
 		glUseProgram(m_program);
