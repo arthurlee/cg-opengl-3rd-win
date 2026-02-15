@@ -16,9 +16,9 @@ public:
 	}
 
 	~QProgram() {
-		//if (m_program != 0) {
-		//	glDeleteProgram(m_program);
-		//}
+		if (m_program != 0) {
+			glDeleteProgram(m_program);
+		}
 	}
 
 public:
