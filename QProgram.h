@@ -4,7 +4,7 @@
 
 class QProgram {
 public:
-	QProgram() = default;
+	//QProgram() = default;
 
 	QProgram(QShader& vertexShader, QShader& fragmentShader) {
 		m_program = glCreateProgram();
