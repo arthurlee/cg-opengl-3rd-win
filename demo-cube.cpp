@@ -95,37 +95,41 @@ void cube_display(GLFWwindow* window, double currentTime, double deltaTime) {
 	vMat = glm::translate(glm::mat4(1.0f), glm::vec3(-cameraX, -cameraY, -cameraZ));
 	//mMat = glm::translate(glm::mat4(1.0f), glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
 
-	tMat = glm::translate(glm::mat4(1.0f), 
-		glm::vec3(
-			sin(0.35f * currentTime)*2.0f, 
-			cos(0.52f * currentTime) * 2.0f, 
-			sin(0.7f * currentTime) * 2.0f
-		)
-	);
+	for (int i = 0; i < 24; i++) {
+		currentTime += i;
+	
+		tMat = glm::translate(glm::mat4(1.0f), 
+			glm::vec3(
+				sin(0.35f * currentTime) * 8.0f, 
+				cos(0.52f * currentTime) * 8.0f, 
+				sin(0.7f * currentTime) * 8.0f
+			)
+		);
 
-	// cast angle to float so template deduction matches glm::mat4 (float)
-	rMat = glm::rotate(glm::mat4(1.0f), 1.75f * static_cast<float>(currentTime), glm::vec3(0.0f, 1.0f, 0.0f));
-	rMat = glm::rotate(rMat, 1.75f * static_cast<float>(currentTime), glm::vec3(1.0f, 0.0f, 0.0f));
-	rMat = glm::rotate(rMat, 1.75f * static_cast<float>(currentTime), glm::vec3(0.0f, 0.0f, 1.0f));
+		// cast angle to float so template deduction matches glm::mat4 (float)
+		rMat = glm::rotate(glm::mat4(1.0f), 1.75f * static_cast<float>(currentTime), glm::vec3(0.0f, 1.0f, 0.0f));
+		rMat = glm::rotate(rMat, 1.75f * static_cast<float>(currentTime), glm::vec3(1.0f, 0.0f, 0.0f));
+		rMat = glm::rotate(rMat, 1.75f * static_cast<float>(currentTime), glm::vec3(0.0f, 0.0f, 1.0f));
 
 	
-	mMat = tMat * rMat;	// combine the translation and rotation matrices with the model matrix
-	mvMat = vMat * mMat;
+		mMat = tMat * rMat;	// combine the translation and rotation matrices with the model matrix
+		mvMat = vMat * mMat;
 
 
-	// copy the projection and model-view matrices to the corresponding uniform variables in the shader program
-	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
-	glUniformMatrix4fv(pLoc, 1, GL_FALSE, glm::value_ptr(pMat));
+		// copy the projection and model-view matrices to the corresponding uniform variables in the shader program
+		glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
+		glUniformMatrix4fv(pLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 	
-	// associate the vertex data with the corresponding attribute variable in the shader program, and enable the generic vertex attribute array
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glEnableVertexAttribArray(0);
+		// associate the vertex data with the corresponding attribute variable in the shader program, and enable the generic vertex attribute array
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glEnableVertexAttribArray(0);
 
-	// adjust OpenGL settings and draw the cube
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+		// adjust OpenGL settings and draw the cube
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	}
 }
 
 QRunnable cube_runnable() {
