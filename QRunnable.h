@@ -6,7 +6,7 @@
 typedef int (*Q_INIT_FUNC)(GLFWwindow*);
 typedef void (*Q_DEINIT_FUNC)();
 
-typedef void (*Q_DISPLAY_FUNC)(GLFWwindow*, double);
+typedef void (*Q_DISPLAY_FUNC)(GLFWwindow*, double, double);
 
 struct QRunnable
 {

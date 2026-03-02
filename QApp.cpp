@@ -56,7 +56,7 @@ int QApp::Run() {
 		deltaTime = currentTime - lastTime;
 		frameCount++;
 		
-		m_runnable.display(m_window, deltaTime);
+		m_runnable.display(m_window, currentTime, deltaTime);
 
 		if (deltaTime >= 1.0) {		
 			std::stringstream ss;

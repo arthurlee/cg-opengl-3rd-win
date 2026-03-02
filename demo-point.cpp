@@ -36,7 +36,7 @@ void point_deinit() {
 	renderingProgram.release();
 }
 
-void point_display(GLFWwindow* window, double deltaTime) {
+void point_display(GLFWwindow* window, double currentTime, double deltaTime) {
 	//cout << "point_display: " << currentTime << endl;
 
 	if (renderingProgram->isValid()) {

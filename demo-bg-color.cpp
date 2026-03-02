@@ -1,7 +1,7 @@
 
 #include "QRunnable.h"
 
-void bg_color_display(GLFWwindow* window, double deltaTime) {
+void bg_color_display(GLFWwindow* window, double currentTime, double deltaTime) {
 	glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
