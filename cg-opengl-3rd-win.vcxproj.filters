@@ -45,6 +45,9 @@
     <ClCompile Include="demo-cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="demo-multi-cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QApp.h">

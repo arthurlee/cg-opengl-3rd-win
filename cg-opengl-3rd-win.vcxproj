@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="demo-bg-color.cpp" />
     <ClCompile Include="demo-cube.cpp" />
+    <ClCompile Include="demo-multi-cube.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="demo-point.cpp" />
     <ClCompile Include="QApp.cpp" />
