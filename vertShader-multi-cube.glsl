@@ -65,9 +65,14 @@ void main(void) {
 	float i = gl_InstanceID * 10 + tf;	// value based on time factor, but different for each cube instance
 	
 	// these are the x, y, and z components for the translation, below
-	float a = sin(0.35 * i) * 8.0;
-	float b = -2.0 + sin(0.52 * i) * 8.0;
-	float c = sin(0.7 * i) * 8.0;
+	// float a = sin(0.35 * i) * 8.0;
+	// float b = -2.0 + sin(0.52 * i) * 8.0;
+	// float c = sin(0.7 * i) * 8.0;
+
+	float a = sin(203.0 * i / 8000.0) * 403.0;
+	float b = cos(301.0 * i / 4001.0) * 401.0;
+	float c = sin(400.0 * i / 6003.0) * 405.0;
+
 	mat4 localTrans = buildTranslate(a, b, c);
     // mat4 localTrans = buildTranslate(0, -2.0, 0);
 

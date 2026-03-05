@@ -156,9 +156,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="fragShader-cube.glsl" />
+    <None Include="fragShader-multi-cube.glsl" />
     <None Include="fragShader.glsl" />
     <None Include="README.md" />
     <None Include="vertShader-cube.glsl" />
+    <None Include="vertShader-multi-cube.glsl" />
     <None Include="vertShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

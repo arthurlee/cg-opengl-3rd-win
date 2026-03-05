@@ -65,7 +65,7 @@ int multi_cube_init(GLFWwindow* window) {
 		return -1;
 	}
 
-	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 20.0f;
+	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 420.0f;
 	cubeLocX = 0.0f; cubeLocY = -2.0f; cubeLocZ = 0.0f;	// shift down Y to reveall perpective distortion
 
 	multi_setupVertices();
@@ -111,7 +111,7 @@ void multi_cube_display(GLFWwindow* window, double currentTime, double deltaTime
 	// adjust OpenGL settings and draw the cube
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 1);
+	glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 100000);
 }
 
 QRunnable multi_cube_runnable() {

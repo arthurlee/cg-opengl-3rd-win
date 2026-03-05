@@ -97,7 +97,7 @@ void cube_display(GLFWwindow* window, double currentTime, double deltaTime) {
 
 	for (int i = 0; i < 24; i++) {
 
-		float timeFactor = (float)currentTime + i * 10.0;
+		float timeFactor = (float)(currentTime + i * 10.0);
 
 		float far = 8.0f;
 		tMat = glm::translate(glm::mat4(1.0f),
