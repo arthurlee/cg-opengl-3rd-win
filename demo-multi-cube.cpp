@@ -60,12 +60,12 @@ void multi_setupVertices() {
 
 int multi_cube_init(GLFWwindow* window) {
 	renderingProgram.reset(new QProgram());
-	if (!renderingProgram->attachShaderFromFile("vertShader-cube.glsl", "fragShader-cube.glsl")) {
+	if (!renderingProgram->attachShaderFromFile("vertShader-multi-cube.glsl", "fragShader-multi-cube.glsl")) {
 		cout << "Failed to create shader program" << endl;
 		return -1;
 	}
 
-	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 420.0f;
+	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 10.0f;
 	cubeLocX = 0.0f; cubeLocY = -2.0f; cubeLocZ = 0.0f;	// shift down Y to reveall perpective distortion
 
 	multi_setupVertices();
@@ -98,24 +98,6 @@ void multi_cube_display(GLFWwindow* window, double currentTime, double deltaTime
 
 	float timeFactor = (float)currentTime;
 
-	//tMat = glm::translate(glm::mat4(1.0f), 
-	//	glm::vec3(
-	//		sin(0.35f * currentTime) * 8.0f, 
-	//		cos(0.52f * currentTime) * 8.0f, 
-	//		sin(0.7f * currentTime) * 8.0f
-	//	)
-	//);
-
-	//// cast angle to float so template deduction matches glm::mat4 (float)
-	//rMat = glm::rotate(glm::mat4(1.0f), 1.75f * static_cast<float>(currentTime), glm::vec3(0.0f, 1.0f, 0.0f));
-	//rMat = glm::rotate(rMat, 1.75f * static_cast<float>(currentTime), glm::vec3(1.0f, 0.0f, 0.0f));
-	//rMat = glm::rotate(rMat, 1.75f * static_cast<float>(currentTime), glm::vec3(0.0f, 0.0f, 1.0f));
-
-	//
-	//mMat = tMat * rMat;	// combine the translation and rotation matrices with the model matrix
-	//mvMat = vMat * mMat;
-
-
 	// copy the projection and model-view matrices to the corresponding uniform variables in the shader program
 	glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(vMat));
 	glUniformMatrix4fv(pLoc, 1, GL_FALSE, glm::value_ptr(pMat));
@@ -129,7 +111,7 @@ void multi_cube_display(GLFWwindow* window, double currentTime, double deltaTime
 	// adjust OpenGL settings and draw the cube
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 100000);
+	glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 1);
 }
 
 QRunnable multi_cube_runnable() {
