@@ -65,7 +65,7 @@ int multi_cube_init(GLFWwindow* window) {
 		return -1;
 	}
 
-	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 10.0f;
+	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 20.0f;
 	cubeLocX = 0.0f; cubeLocY = -2.0f; cubeLocZ = 0.0f;	// shift down Y to reveall perpective distortion
 
 	multi_setupVertices();
@@ -101,7 +101,7 @@ void multi_cube_display(GLFWwindow* window, double currentTime, double deltaTime
 	// copy the projection and model-view matrices to the corresponding uniform variables in the shader program
 	glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(vMat));
 	glUniformMatrix4fv(pLoc, 1, GL_FALSE, glm::value_ptr(pMat));
-	glUniform1d(tfLoc, timeFactor);
+	glUniform1f(tfLoc, timeFactor);
 
 	// associate the vertex data with the corresponding attribute variable in the shader program, and enable the generic vertex attribute array
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
