@@ -2,8 +2,6 @@
 
 QModel::QModel() 
 	: m_location(glm::vec3(0.0f, 0.0f, 0.0f))
-	, m_positions(nullptr) 
-	, m_positionCount(0)
 	, m_bufferIndex(0) {
 }
 
@@ -15,22 +13,32 @@ const glm::vec3& QModel::getLocation() const {
 	return m_location; 
 }
 
-void QModel::setLocation(float x, float y, float z) { 
-	m_location = glm::vec3(x, y, z); 
+QModel& QModel::setLocation(float x, float y, float z) {
+	m_location = glm::vec3(x, y, z);
+	return *this;
 }
 
 const float* QModel::getPositions() const {
-	return m_positions;
+	return (const float *)m_positionBuffer.data();
 }
 
 int QModel::getPositionCount() const {
-	return m_positionCount; 
+	return m_positionBuffer.length() / sizeof(float);
+}
+
+int QModel::vertexCount() const {
+	return getPositionCount() / 3;
+}
+
+void QModel::bindBufferData(GLuint vbo[]) {
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[m_bufferIndex]);
+	glBufferData(GL_ARRAY_BUFFER, getPositionCount(), getPositions(), GL_STATIC_DRAW);
 }
 
 // todo: allocate memory for positions and copy the data, instead of just storing the pointer
-void QModel::setPositions(const float* positions, int positionCount) {
-	m_positionCount = positionCount;
-	m_positions = positions;
+QModel& QModel::setPositions(const float* positions, int positionCount) {
+	m_positionBuffer.append(positions, positionCount * sizeof(float));
+	return *this;
 }
 
 // buffer index
@@ -38,6 +46,7 @@ int QModel::getBufferIndex() const {
 	return m_bufferIndex; 
 }
 
-void QModel::setBufferIndex(int bufferIndex) { 
+QModel& QModel::setBufferIndex(int bufferIndex) {
 	m_bufferIndex = bufferIndex; 
+	return *this;
 }

@@ -142,6 +142,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="demo-point.cpp" />
     <ClCompile Include="QApp.cpp" />
+    <ClCompile Include="QBuffer.cpp" />
+    <ClCompile Include="QCamera.cpp" />
     <ClCompile Include="QFile.cpp" />
     <ClCompile Include="QGLTool.cpp" />
     <ClCompile Include="QModel.cpp" />
@@ -150,6 +152,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QApp.h" />
+    <ClInclude Include="QBuffer.h" />
+    <ClInclude Include="QCamera.h" />
     <ClInclude Include="QFile.h" />
     <ClInclude Include="QGLTool.h" />
     <ClInclude Include="QModel.h" />

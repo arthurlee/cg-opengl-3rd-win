@@ -54,6 +54,12 @@
     <ClCompile Include="QModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QApp.h">
@@ -75,6 +81,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
