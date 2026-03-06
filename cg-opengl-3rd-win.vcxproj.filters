@@ -48,6 +48,9 @@
     <ClCompile Include="demo-multi-cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="demo-multi-model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QApp.h">
@@ -81,12 +84,6 @@
       <Filter>shaders</Filter>
     </None>
     <None Include="fragShader-cube.glsl">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="fragShader-multi-cube.glsl">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="vertShader-multi-cube.glsl">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>
