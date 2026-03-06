@@ -1,5 +1,6 @@
 #include "QBuffer.h"
 #include <cstring>
+#include <iostream>
 
 #define CAPACITY_INCREMENT 1024
 
@@ -7,6 +8,7 @@ QBuffer::QBuffer() : m_data(nullptr), m_len(0), m_capacity(0) {
 
 }
 QBuffer::~QBuffer() {
+	std::cout << "QBuffer destructor called" << std::endl;
 	free();
 }
 

@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include "QBuffer.h"
+#include "QCamera.h"
 
 class QModel
 {
@@ -21,11 +22,15 @@ public:
 	int vertexCount() const;
 	int getPositionCount() const;
 	QModel& setPositions(const float* positions, int positionCount);
-	void bindBufferData(GLuint vbo[]);
+	QModel& bindBufferData(GLuint vbo[]);
 
 	// buffer index
 	int getBufferIndex() const;
 	QModel& setBufferIndex(int bufferIndex);
+
+	const glm::mat4 modelMatrix() const;
+
+	void display(GLuint vbo[], QCamera &camera, GLuint mvLoc, GLuint pLoc);
 
 private:
 	glm::vec3 m_location;
@@ -33,5 +38,7 @@ private:
 	//const float* m_positions;
 	//int m_positionCount;
 	int m_bufferIndex;	// index of the VBO buffer that contains the position data for this model
+
+	glm::mat4 m_mMat;	// model matrix
 };
 
