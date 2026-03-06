@@ -144,6 +144,7 @@
     <ClCompile Include="QApp.cpp" />
     <ClCompile Include="QFile.cpp" />
     <ClCompile Include="QGLTool.cpp" />
+    <ClCompile Include="QModel.cpp" />
     <ClCompile Include="QProgram.cpp" />
     <ClCompile Include="QShader.cpp" />
   </ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="QApp.h" />
     <ClInclude Include="QFile.h" />
     <ClInclude Include="QGLTool.h" />
+    <ClInclude Include="QModel.h" />
     <ClInclude Include="QProgram.h" />
     <ClInclude Include="QRunnable.h" />
     <ClInclude Include="QShader.h" />

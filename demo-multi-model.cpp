@@ -3,6 +3,7 @@
 
 #include "QRunnable.h"
 #include "QProgram.h"
+#include "QModel.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -23,8 +24,9 @@ static GLuint vbo[numVBOs];
 static unique_ptr<QProgram> renderingProgram;
 
 static float cameraX, cameraY, cameraZ;
-static float cubeLocX, cubeLocY, cubeLocZ;
-static float pyramidLocX, pyramidLocY, pyramidLocZ;
+//static float cubeLocX, cubeLocY, cubeLocZ;
+//static float pyramidLocX, pyramidLocY, pyramidLocZ;
+static QModel modelCube, modelPyramid;
 
 // allocate variables used in display() function, so that they don't need to be allocated during rendering
 static GLuint mvLoc, pLoc;
@@ -59,16 +61,21 @@ static void multi_setupVertices() {
 		1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f  //RR
 	};
 
+	modelCube.setPositions(cubePositions, sizeof(cubePositions));
+	modelCube.setBufferIndex(0);
+	modelPyramid.setPositions(pyramidPositions, sizeof(pyramidPositions));
+	modelPyramid.setBufferIndex(1);
+
 	glGenVertexArrays(numVAOs, vao);
 	glBindVertexArray(vao[0]);
 
 	glGenBuffers(numVBOs, vbo);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(cubePositions), cubePositions, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[modelCube.getBufferIndex()]);
+	glBufferData(GL_ARRAY_BUFFER, modelCube.getPositionCount(), modelCube.getPositions(), GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(pyramidPositions), pyramidPositions, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[modelPyramid.getBufferIndex()]);
+	glBufferData(GL_ARRAY_BUFFER, modelPyramid.getPositionCount(), modelPyramid.getPositions(), GL_STATIC_DRAW);
 }
 
 
@@ -86,8 +93,9 @@ int multi_model_init(GLFWwindow* window) {
 	pMat = glm::perspective(glm::radians(60.0f), aspect, 0.1f, 1000.0f); // 1.0472 radians = 60 degrees
 
 	cameraX = 0.0f; cameraY = 0.0f; cameraZ = 8.0f;
-	cubeLocX = -2.0f; cubeLocY = -2.0f; cubeLocZ = 0.0f;	// shift down Y to reveall perpective distortion
-	pyramidLocX = 0.0f; pyramidLocY = 2.0f; pyramidLocZ = 0.0f;
+
+	modelCube.setLocation(-2.0f, -2.0f, 0.0f);
+	modelPyramid.setLocation(0.0f, 2.0f, 0.0f);
 
 	multi_setupVertices();
 
@@ -112,7 +120,7 @@ void multi_model_display(GLFWwindow* window, double currentTime, double deltaTim
 	// draw the cube using buffer #0
 	// ----------------------------------
 
-	mMat = glm::translate(glm::mat4(1.0f), glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
+	mMat = glm::translate(glm::mat4(1.0f), modelCube.getLocation());
 	mvMat = vMat * mMat;
 
 	// copy the projection and model-view matrices to the corresponding uniform variables in the shader program
@@ -120,19 +128,19 @@ void multi_model_display(GLFWwindow* window, double currentTime, double deltaTim
 	glUniformMatrix4fv(pLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
 	// associate the vertex data with the corresponding attribute variable in the shader program, and enable the generic vertex attribute array
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[modelCube.getBufferIndex()]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	glEnableVertexAttribArray(0);
 
 	// adjust OpenGL settings and draw the cube
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDrawArrays(GL_TRIANGLES, 0, modelCube.getPositionCount() / 3);
 
-	// draw the cube using buffer #0
+	// draw the cube using buffer #1
 	// ----------------------------------
 
-	mMat = glm::translate(glm::mat4(1.0f), glm::vec3(pyramidLocX, pyramidLocY, pyramidLocZ));
+	mMat = glm::translate(glm::mat4(1.0f), modelPyramid.getLocation());
 	mvMat = vMat * mMat;
 
 	// copy the projection and model-view matrices to the corresponding uniform variables in the shader program
@@ -140,14 +148,14 @@ void multi_model_display(GLFWwindow* window, double currentTime, double deltaTim
 	glUniformMatrix4fv(pLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
 	// associate the vertex data with the corresponding attribute variable in the shader program, and enable the generic vertex attribute array
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[modelPyramid.getBufferIndex()]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	glEnableVertexAttribArray(0);
 
 	// adjust OpenGL settings and draw the cube
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	glDrawArrays(GL_TRIANGLES, 0, 18);
+	glDrawArrays(GL_TRIANGLES, 0, modelPyramid.getPositionCount() / 3);
 }
 
 QRunnable multi_model_runnable() {
