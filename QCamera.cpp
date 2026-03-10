@@ -1,9 +1,11 @@
 
 #include "QCamera.h"
 
-
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <iostream>
+using namespace std;
 
 QCamera::QCamera() {
 
@@ -30,6 +32,32 @@ QCamera& QCamera::perspective(GLFWwindow* window, float fovy, float zNear, float
 
 	m_pMat = glm::perspective(fovy, m_aspect, zNear, zFar);
 	m_vMat = glm::translate(glm::mat4(1.0f), -m_location);
+
+	cout << "Camera perspective: " << endl
+		<< "  width: " << m_width << endl
+		<< "  height: " << m_height << endl
+		<< "  aspect: " << m_aspect << endl
+		<< "  fovy: " << fovy << endl
+		<< "  zNear: " << zNear << endl
+		<< "  zFar: " << zFar << endl;
+
+	cout << "Camera perspective matrix: " << endl;
+	const float* p = (const float*)glm::value_ptr(m_pMat);
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			cout << p[j * 4 + i] << " ";
+		}
+		cout << endl;
+	}
+
+	cout << "Camera view matrix: " << endl;
+	p = (const float*)glm::value_ptr(m_vMat);
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			cout << p[j * 4 + i] << " ";
+		}
+		cout << endl;
+	}
 
 	return *this;
 }

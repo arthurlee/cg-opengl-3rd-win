@@ -104,5 +104,11 @@
     <None Include="fragShader-cube.glsl">
       <Filter>shaders</Filter>
     </None>
+    <None Include="fragShader-multi-model.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="vertShader-multi-model.glsl">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
